@@ -1,0 +1,3 @@
+rootProject.name = 'PetPet'
+include('server')
+include('client')
