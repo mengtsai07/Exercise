@@ -27,8 +27,6 @@ public class ShelterAnimal {
     @Lob
     private String  animalPhoto3;
     private String animalDescribe;
-//    @Column(insertable = false)
-//    private Integer ifAdopted;
     private String animalNumber;
     private String shelterName;
     private String animalArea;

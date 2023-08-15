@@ -22,7 +22,8 @@ public class ShelterAnimalRequestVM {
     private String animalGender;
 
     private String animalAge;
-
+    @JsonSetter(nulls= Nulls.SKIP)
+    private String animalCategory = "%";
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonSetter(nulls = Nulls.SKIP)
     private LocalDate animalDateFrom = LocalDate.of(1900, 1, 1);
@@ -31,6 +32,5 @@ public class ShelterAnimalRequestVM {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonSetter(nulls = Nulls.SKIP)
     private LocalDate animalDateTo = LocalDate.of(9999,12,31);
-
 
 }

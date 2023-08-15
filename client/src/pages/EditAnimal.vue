@@ -1,6 +1,6 @@
 <template>
   <div class="q-pa-xl">
-    <q-card>
+    <q-form @submit="callSaveAnimal" class="q-gutter-md">
       <q-card-section>
         <span class="text-h6">編輯動物資料</span>
       </q-card-section>
@@ -12,6 +12,8 @@
               label="動物暱稱/小名"
               filled
               clearable
+              lazy-rules
+              :rules="[(val) => !!val || '名稱不可為空']"
             ></q-input>
           </div>
           <div class="col-12 col-md-4">
@@ -20,6 +22,7 @@
               label="收容編號"
               filled
               clearable
+              :rules="[(val) => !!val || '收容編號不可為空']"
             >
             </q-input>
           </div>
@@ -30,6 +33,7 @@
               :options="area"
               filled
               clearable
+              :rules="[(val) => !!val || '請選擇區域']"
             ></q-select>
           </div>
           <div class="col-12 col-md-4">
@@ -39,15 +43,16 @@
               :options="type"
               filled
               clearable
+              :rules="[(val) => !!val || '請選擇類別']"
             ></q-select>
           </div>
           <div class="col-12 col-md-4">
             <q-input
               v-model="request.saveAnimal.data.animalCategory"
-              autofocus
               label="動物品種"
               filled
               clearable
+              :rules="[(val) => !!val || '品種不可為空']"
             >
             </q-input>
           </div>
@@ -58,6 +63,7 @@
               :options="gender"
               filled
               clearable
+              :rules="[(val) => !!val || '請選擇性別']"
             >
             </q-select>
           </div>
@@ -68,6 +74,7 @@
               :options="age"
               filled
               clearable
+              :rules="[(val) => !!val || '請選擇年齡層']"
             ></q-select>
           </div>
           <div class="col-12 col-md-4">
@@ -76,6 +83,7 @@
               label="動物毛色"
               filled
               clearable
+              :rules="[(val) => !!val || '請填寫毛色']"
             >
             </q-input>
           </div>
@@ -126,21 +134,16 @@
       </q-card-section>
       <q-card-section>
         <div class="q-ma-md text-center">
-          <q-btn
-            @click="callSaveAnimal"
-            label="Submit"
-            type="submit"
-            color="primary"
-          />
+          <q-btn label="Submit" type="submit" color="primary" />
         </div>
       </q-card-section>
-    </q-card>
+    </q-form>
   </div>
 </template>
 
 <script setup>
 import { api } from "src/boot/axios";
-import { ref, onMounted, reactive, onBeforeMount } from "vue";
+import { ref, reactive } from "vue";
 import { useRouter, useRoute } from "vue-router";
 
 const router = useRouter();
@@ -157,8 +160,6 @@ let request = reactive({
   },
 });
 
-const today = new Date();
-const date = ref(today.toISOString().slice(0, 10));
 const gender = ref(["公", "母", "未知"]);
 const type = ref(["貓", "狗", "兔", "鳥"]);
 const area = ref(["北部區域", "中部區域", "南部區域", "東部區域", "離島區域"]);
@@ -194,7 +195,7 @@ const deleteimg = (img) => {
 
 const callSaveAnimal = async () => {
   try {
-    let response = await api(request.saveAnimal);
+    await api(request.saveAnimal);
     alert("update successfully");
     router.push("/petpet");
   } catch (error) {

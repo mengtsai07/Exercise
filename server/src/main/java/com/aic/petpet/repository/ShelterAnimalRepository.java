@@ -21,12 +21,13 @@ public interface ShelterAnimalRepository extends JpaRepository<ShelterAnimal,Int
             "(UPPER(sa.animalName) LIKE UPPER(CONCAT('%', :#{#shelterAnimal.animalName}, '%'))) AND " +
             "(UPPER(sa.animalNumber) LIKE UPPER(CONCAT('%', :#{#shelterAnimal.animalNumber}, '%'))) AND " +
             "(sa.animalAge = :#{#shelterAnimal.animalAge} OR :#{#shelterAnimal.animalAge} IS NULL) AND " +
+            "(UPPER(sa.animalCategory) LIKE UPPER(CONCAT('%', :#{#shelterAnimal.animalCategory}, '%'))) AND " +
             "(sa.animalDate BETWEEN :#{#shelterAnimal.animalDateFrom} AND :#{#shelterAnimal.animalDateTo})")
 
 
 
-    Page<ShelterAnimal> findShelterAnimals(Pageable pageable, @Param("shelterAnimal") ShelterAnimalRequestVM shelterAnimal);
 
+    Page<ShelterAnimal> findShelterAnimals(Pageable pageable, @Param("shelterAnimal") ShelterAnimalRequestVM Animal);
 
 
 
